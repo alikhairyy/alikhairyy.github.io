@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Khairy</title>
+<meta name="description" content="Ali Khairy — FinTech & Blockchain student at ESLSCA University. Smart contracts, payment systems, data and machine learning.">
+<meta property="og:title" content="Ali Khairy">
+<meta property="og:description" content="FinTech & Blockchain student building smart contracts, payment systems and machine learning for finance.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='9' width='12' height='14' rx='2' fill='%231F7A5A'/%3E%3Crect x='17' y='9' width='12' height='14' rx='2' fill='none' stroke='%231F7A5A' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F6; --surface:#F8FAFC; --ink:#16213A; --muted:#566079; --rule:#D3D9E3;
+  --accent:#1F7A5A; --accent-soft:#DCEFE6; --amber:#A86A12;
+  --sans:"Schibsted Grotesk",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1524; --surface:#131D30; --ink:#E6EBF3; --muted:#9AA5BA; --rule:#24314A;
+    --accent:#4CC08F; --accent-soft:#16352B; --amber:#E0A84A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1524; --surface:#131D30; --ink:#E6EBF3; --muted:#9AA5BA; --rule:#24314A;
+  --accent:#4CC08F; --accent-soft:#16352B; --amber:#E0A84A;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.6}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.top .me{font-weight:700;text-decoration:none;letter-spacing:-.01em}
+.top nav{display:flex;gap:20px;font-size:.95rem}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--ink)}
+@media (max-width:600px){.top nav a.opt{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:end;padding:64px 0 72px;border-bottom:1px solid var(--rule)}
+.hero h1{font-size:clamp(3rem,8.5vw,6.4rem);line-height:.92;letter-spacing:-.045em;font-weight:800;margin:0 0 28px}
+.hero h1 span{display:block}
+.hero p.lede{font-size:1.25rem;line-height:1.5;max-width:34ch;margin:0 0 28px;color:var(--ink)}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.97rem;border:1.5px solid var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn svg{width:17px;height:17px}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:40px;padding:40px 0 56px}}
+
+/* blocks (shared) */
+.block{background:var(--surface);border:1.5px solid var(--rule);border-radius:10px;padding:20px 22px;position:relative}
+.block .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.block .height{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.block .when{font-size:.9rem;color:var(--muted)}
+.hashes{margin-top:16px;padding-top:12px;border-top:1px dashed var(--rule);font-family:var(--mono);font-size:.76rem;color:var(--muted);display:grid;grid-template-columns:auto 1fr;gap:2px 12px;word-break:break-all}
+.hashes b{font-weight:500;color:var(--ink)}
+.hashes .ok{color:var(--accent)}
+.genesis h2{font-size:1.05rem;margin:0 0 4px}
+.genesis p{margin:0;color:var(--muted);font-size:.95rem}
+.genesis .full{font-family:var(--mono);font-size:.78rem;line-height:1.5;color:var(--accent);margin-top:14px;word-break:break-all;min-height:3em}
+.genesis .full .pending{color:var(--muted)}
+
+/* section heads */
+section{padding:72px 0;border-bottom:1px solid var(--rule)}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.sh h2{font-size:clamp(1.9rem,4vw,2.6rem);letter-spacing:-.03em;line-height:1.05;margin:0}
+.sh p{margin:6px 0 0;color:var(--muted);max-width:52ch}
+
+/* chain */
+.chain{list-style:none;margin:0;padding:0;position:relative}
+.chain li{display:grid;grid-template-columns:120px 1fr;gap:28px;position:relative;padding-bottom:28px}
+.chain li:last-child{padding-bottom:0}
+.chain .rail{position:relative;text-align:right;padding-top:20px}
+.chain .rail .term{font-weight:600;font-size:.95rem;line-height:1.25}
+.chain li::before{content:"";position:absolute;left:147px;top:0;bottom:0;width:2px;background:var(--rule)}
+.chain li:first-child::before{top:26px}
+.chain li:last-child::before{bottom:auto;height:26px}
+.chain li::after{content:"";position:absolute;left:142px;top:22px;width:12px;height:12px;border-radius:3px;background:var(--paper);border:2px solid var(--muted)}
+.chain li.verified::after{background:var(--accent);border-color:var(--accent)}
+.chain li.verified::before{background:var(--accent)}
+.chain li.verified .block{border-color:var(--accent)}
+.chain .block{margin-left:12px}
+.block h3{font-size:1.3rem;letter-spacing:-.015em;margin:0;line-height:1.25}
+.block h3 a{text-decoration:none}
+.block h3 a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.block .desc{margin:8px 0 12px;max-width:64ch}
+.block ul.pts{margin:8px 0 12px;padding-left:1.1em}
+.block ul.pts li{display:list-item;padding:0;margin:4px 0}
+.block ul.pts li::before,.block ul.pts li::after{content:none}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:.8rem;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.block.work{border-width:2px}
+.block .kind{font-size:.85rem;font-weight:600;color:var(--amber)}
+@media (max-width:700px){
+  .chain li{grid-template-columns:1fr;gap:6px;padding-left:28px}
+  .chain .rail{text-align:left;padding-top:0}
+  .chain li::before{left:5px}
+  .chain li:first-child::before{top:6px}
+  .chain li:last-child::before{height:6px}
+  .chain li::after{left:0;top:4px}
+  .chain .block{margin-left:0}
+}
+.verify{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;font-size:.95rem;padding:10px 16px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+.verify:hover{background:var(--accent-soft)}
+.verify[disabled]{cursor:default}
+.status{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin-left:12px}
+
+/* more */
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0;border-top:1px solid var(--rule)}
+.more a{display:block;padding:18px 4px 18px 0;border-bottom:1px solid var(--rule);text-decoration:none}
+.more a strong{display:block;font-weight:600}
+.more a span{color:var(--muted);font-size:.93rem}
+.more a:hover strong{text-decoration:underline;text-underline-offset:3px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.skills h3{font-size:1rem;margin:0 0 10px}
+.skills ul{list-style:none;margin:0;padding:0;color:var(--muted)}
+.skills li{padding:3px 0}
+@media (max-width:820px){.skills{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.skills{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.about p{margin:0 0 14px;max-width:60ch}
+.about .facts{margin:0}
+.about .facts div{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.about .facts dt{color:var(--muted)}
+.about .facts dd{margin:0}
+@media (max-width:820px){.about{grid-template-columns:1fr;gap:28px}}
+
+/* contact */
+.contact{padding:88px 0 40px;border-bottom:0}
+.contact h2{font-size:clamp(2.2rem,6vw,4rem);letter-spacing:-.04em;line-height:1;margin:0 0 20px;max-width:16ch}
+.contact p{color:var(--muted);margin:0 0 28px;max-width:52ch}
+footer{padding:28px 0 48px;color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.theme{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .chain li::after,.chain li::before,.chain .block{transition:background-color .35s,border-color .35s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="me" href="#">Ali Khairy</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a class="opt" href="#skills">Skills</a>
+      <a class="opt" href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1><span>Ali</span><span>Khairy</span></h1>
+      <p class="lede">FinTech &amp; Blockchain student at ESLSCA University. I build smart contracts, payment flows and machine learning models for financial data.</p>
+      <div class="links">
+        <a class="btn solid" href="#work">See my work</a>
+        <a class="btn" href="https://github.com/alikhairyy" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/ali-khairy-9502a4334/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85V1.15zM4.94 13.4V6.17H2.54v7.23h2.4zM3.74 5.18c.84 0 1.36-.56 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.01zm4.91 8.22V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.22.66 1.22 1.64v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.3 0-1.86.72-2.18 1.21v.03h-.02l.02-.03V6.17h-2.4c.03.68 0 7.23 0 7.23h2.4z"/></svg>
+          LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="block genesis" aria-label="Genesis block">
+      <div class="head"><span class="height">block #0</span><span class="when">Fall 2024</span></div>
+      <h2>Genesis</h2>
+      <p>Started the FinTech &amp; Blockchain program at ESLSCA University.</p>
+      <div class="full" id="genesisHash"><span class="pending">computing sha-256…</span></div>
+    </div>
+  </div>
+
+  <section id="work">
+    <div class="sh">
+      <div>
+        <h2>The chain so far</h2>
+        <p>My projects and experience in the order I built them. Each block holds the SHA-256 hash of the one before it, computed in your browser.</p>
+      </div>
+      <div><button class="verify" id="verify" type="button">Verify chain</button><span class="status" id="status" aria-live="polite"></span></div>
+    </div>
+    <ol class="chain" id="chain"></ol>
+  </section>
+
+  <section id="more">
+    <div class="sh"><div><h2>More repositories</h2><p>Coursework in programming, databases and networking.</p></div></div>
+    <div class="more" id="moreList"></div>
+  </section>
+
+  <section id="skills">
+    <div class="sh"><div><h2>Skills</h2></div></div>
+    <div class="skills">
+      <div><h3>Blockchain &amp; FinTech</h3><ul><li>Solidity</li><li>Ethereum &amp; Remix</li><li>Tokenization</li><li>Payment systems</li><li>Financial analysis in Excel</li></ul></div>
+      <div><h3>Data &amp; ML</h3><ul><li>Python, NumPy, pandas</li><li>scikit-learn</li><li>TensorFlow / Keras</li><li>Power BI</li><li>Statistics &amp; linear algebra</li></ul></div>
+      <div><h3>Software</h3><ul><li>JavaScript, React, Node.js</li><li>Express &amp; MongoDB</li><li>PHP &amp; MySQL</li><li>Java (OOP)</li><li>Git &amp; Agile/Scrum</li></ul></div>
+      <div><h3>Infrastructure &amp; Security</h3><ul><li>Linux troubleshooting</li><li>Kubernetes &amp; Argo CD</li><li>Incident response &amp; forensics</li><li>YARA detection rules</li><li>Cisco networking, AWS, GCP</li></ul></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sh"><div><h2>About</h2></div></div>
+    <div class="about">
+      <div>
+        <p>I study FinTech &amp; Blockchain at ESLSCA University in Egypt, where my coursework runs from Solidity and payment systems to machine learning, cloud and cybersecurity.</p>
+        <p>I'm most interested in where money meets code: how smart contracts can take middlemen out of transactions, how payment platforms stay secure, and how data can show risk before it becomes a loss.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Studying</dt><dd>B.Sc. FinTech &amp; Blockchain, ESLSCA University (2024 – present)</dd></div>
+        <div><dt>Experience</dt><dd>Intern at Kashier, Summer 2026</dd></div>
+        <div><dt>Based in</dt><dd>Cairo, Egypt</dd></div>
+        <div><dt>Languages</dt><dd>Arabic, English, French</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Looking for a FinTech or blockchain internship.</h2>
+    <p>I'm open to internships and junior roles in blockchain development, payments, security and data. The fastest way to reach me is LinkedIn.</p>
+    <div class="links">
+      <a class="btn solid" href="https://www.linkedin.com/in/ali-khairy-9502a4334/" target="_blank" rel="noopener">Message me on LinkedIn</a>
+      <a class="btn" href="https://github.com/alikhairyy" target="_blank" rel="noopener">Browse my GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="yr"></span> Ali Khairy</span>
+    <button class="theme" id="theme" type="button">Switch to dark mode</button>
+  </footer>
+</div>
+
+<script>
+const GH = "https://github.com/alikhairyy/";
+const blocks = [
+  { term:"Spring 2025", title:"Multi-cloud microservices analysis", repo:"multicloud-microservices-analysis",
+    desc:"Analyzed 400,000 microservice deployments across AWS, Azure and Google Cloud to find what drives latency and cost, then tested Production vs. Testing latency with a t-test.",
+    tags:["Python","pandas","SciPy","Statistics"] },
+  { term:"Fall 2025", title:"ML math from scratch", repo:"ml-math-from-scratch",
+    desc:"Logistic regression written from its equations (sigmoid, cross-entropy, gradient descent) on the diabetes dataset, plus PCA on Iris and Gaussian Naïve Bayes.",
+    tags:["NumPy","scikit-learn","Linear algebra"] },
+  { term:"Spring 2026", title:"Solidity smart contracts", repo:"solidity-smart-contracts",
+    desc:"An owner-gated contract that receives and sends Ether, comparing transfer, send and call, with ownership transfer and zero-address checks.",
+    tags:["Solidity","Ethereum","Remix"] },
+  { term:"Spring 2026", title:"Blockchain real-estate tokenization", repo:"fintech-research-papers",
+    desc:"Research on how tokenization and smart contracts can fix illiquidity, opaque records and costly intermediaries in property deals. Includes papers on cloud security and social-media attacks.",
+    tags:["Research","Tokenization","Security"] },
+  { term:"Spring 2026", title:"Student performance prediction", repo:"student-performance-prediction",
+    desc:"A full data-analytics lifecycle project that predicts final grades and flags at-risk students, with regression and classification models and a Power BI dashboard.",
+    tags:["scikit-learn","Power BI","Team of 4"] },
+  { term:"Spring 2026", title:"Food ordering system", repo:"food-ordering-system-php",
+    desc:"Role-based ordering app in PHP MVC. Card, cash and wallet payments plug in through the Strategy pattern, so new payment methods don't touch checkout code.",
+    tags:["PHP","MySQL","Design patterns"] },
+  { term:"Summer 2026", work:true, title:"Intern at Kashier", kind:"Experience",
+    pts:["Platform track: fixed broken Linux services, DNS, TLS and firewall issues, and debugged Kubernetes deployments in a GitOps setup modeled on OpenShift and Argo CD.",
+         "Security track: log triage and IOC hunting, YARA detection rules, incident response, disk, network and memory forensics, and a capstone incident report."],
+    tags:["Linux","Kubernetes","Incident response","Forensics"] },
+  { term:"Fall 2026", title:"Session authentication", repo:"mern-session-auth",
+    desc:"Login and registration with bcrypt-hashed passwords, MongoDB-backed sessions and hardened cookies, built twice: vanilla JS and React.",
+    tags:["Node.js","Express","MongoDB","React"] },
+];
+const more = [
+  ["machine-learning-labs","Regression, Keras and transfer learning (ResNet vs. MobileNet)"],
+  ["react-posts-api","React app consuming a REST API"],
+  ["php-shopping-cart","Session-based cart and checkout"],
+  ["python-data-structures","Linked lists, stacks, queues, NumPy"],
+  ["java-oop-labs","Encapsulation and inheritance in Java"],
+  ["sql-database-assignments","MySQL queries and stored procedures"],
+  ["cisco-network-design","Network topologies in Packet Tracer"],
+];
+
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short = h => h.slice(0,10) + "…" + h.slice(-6);
+async function sha256(text){
+  if (!(window.crypto && crypto.subtle)) return null;
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
+}
+const payload = (b, i, prev) => [i+1, b.term, b.title, prev].join("|");
+
+const chainEl = document.getElementById("chain");
+chainEl.innerHTML = blocks.map((b,i) => `
+  <li id="b${i+1}">
+    <div class="rail"><div class="term">${b.term}</div></div>
+    <article class="block${b.work?" work":""}">
+      <div class="head"><span class="height">block #${i+1}</span>${b.kind?`<span class="kind">${b.kind}</span>`:""}</div>
+      <h3>${b.repo?`<a href="${GH+b.repo}" target="_blank" rel="noopener">${esc(b.title)}</a>`:esc(b.title)}</h3>
+      ${b.desc?`<p class="desc">${esc(b.desc)}</p>`:""}
+      ${b.pts?`<ul class="pts">${b.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
+      <div class="tags">${b.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div>
+      <div class="hashes"><span>prev</span><b data-prev>…</b><span>hash</span><b data-hash>…</b></div>
+    </article>
+  </li>`).join("");
+
+document.getElementById("moreList").innerHTML = more.map(([r,d]) =>
+  `<a href="${GH+r}" target="_blank" rel="noopener"><strong>${r}</strong><span>${esc(d)}</span></a>`).join("");
+
+let hashes = [];
+async function build(){
+  const g = await sha256("0|Fall 2024|Ali Khairy joins FinTech & Blockchain, ESLSCA University|0");
+  const gEl = document.getElementById("genesisHash");
+  if (!g){ gEl.textContent = "Hashing needs a secure (https) page."; document.getElementById("verify").hidden = true; return; }
+  gEl.textContent = g;
+  hashes = [g];
+  for (let i=0;i<blocks.length;i++){
+    const prev = hashes[i];
+    const h = await sha256(payload(blocks[i], i, prev));
+    hashes.push(h);
+    const li = document.getElementById("b"+(i+1));
+    li.querySelector("[data-prev]").textContent = short(prev);
+    li.querySelector("[data-hash]").textContent = short(h);
+  }
+}
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.getElementById("verify").addEventListener("click", async (e) => {
+  const btn = e.currentTarget, status = document.getElementById("status");
+  btn.disabled = true;
+  document.querySelectorAll(".chain li").forEach(li => li.classList.remove("verified"));
+  for (let i=0;i<blocks.length;i++){
+    status.textContent = `checking block #${i+1}…`;
+    const h = await sha256(payload(blocks[i], i, hashes[i]));
+    const li = document.getElementById("b"+(i+1));
+    if (h === hashes[i+1]) {
+      li.classList.add("verified");
+      li.querySelector("[data-prev]").classList.add("ok");
+    } else { status.textContent = `block #${i+1} does not match`; btn.disabled = false; return; }
+    if (!reduce) await new Promise(r => setTimeout(r, 220));
+  }
+  status.textContent = `${blocks.length} of ${blocks.length} blocks valid`;
+  btn.textContent = "Chain verified";
+});
+build();
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+const tBtn = document.getElementById("theme");
+const isDark = () => document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+const label = () => tBtn.textContent = isDark() ? "Switch to light mode" : "Switch to dark mode";
+try { const s = localStorage.getItem("theme"); if (s) document.documentElement.dataset.theme = s; } catch(e){}
+label();
+tBtn.addEventListener("click", () => {
+  const next = isDark() ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("theme", next); } catch(e){}
+  label();
+});
+</script>
+</body>
+</html>
