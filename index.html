@@ -60,11 +60,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .block .height{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
 .block .when{font-size:.9rem;color:var(--muted)}
 .hashes{margin-top:16px;padding-top:12px;border-top:1px dashed var(--rule);font-family:var(--mono);font-size:.76rem;color:var(--muted);display:grid;grid-template-columns:auto 1fr;gap:2px 12px;word-break:break-all}
+.chain .hashes{max-height:0;margin-top:0;padding-top:0;border-top-color:transparent;opacity:0;overflow:hidden}
+.chain .block:hover .hashes,.chain .block:focus-within .hashes,.chain.show-hashes .hashes{max-height:4em;margin-top:16px;padding-top:12px;border-top-color:var(--rule);opacity:1}
+@media (prefers-reduced-motion:no-preference){.chain .hashes{transition:max-height .3s,opacity .3s,margin .3s,padding .3s}}
+.hint{font-size:.85rem;color:var(--muted);margin:10px 0 0}
 .hashes b{font-weight:500;color:var(--ink)}
 .hashes .ok{color:var(--accent)}
 .genesis h2{font-size:1.05rem;margin:0 0 4px}
 .genesis p{margin:0;color:var(--muted);font-size:.95rem}
-.genesis .full{font-family:var(--mono);font-size:.78rem;line-height:1.5;color:var(--accent);margin-top:14px;word-break:break-all;min-height:3em}
+.genesis .full{font-family:var(--mono);font-size:.76rem;line-height:1.5;color:var(--muted);margin-top:14px;word-break:break-all}
 .genesis .full .pending{color:var(--muted)}
 
 /* section heads */
@@ -119,6 +123,37 @@ section{padding:72px 0;border-bottom:1px solid var(--rule)}
 .more a span{color:var(--muted);font-size:.93rem}
 .more a:hover strong{text-decoration:underline;text-underline-offset:3px}
 
+
+/* studies */
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin:-12px 0 32px;color:var(--muted);font-size:.97rem}
+.stats b{color:var(--ink);font-weight:700}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.tabs button{font:inherit;font-size:.95rem;font-weight:600;padding:9px 16px;border-radius:999px;border:1.5px solid var(--rule);background:transparent;color:var(--muted);cursor:pointer}
+.tabs button:hover{color:var(--ink);border-color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tabs button small{font-weight:500;opacity:.75;margin-left:4px}
+.term-intro{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.term-intro h3{margin:0;font-size:1.35rem;letter-spacing:-.015em}
+.term-intro p{margin:0;color:var(--muted);font-size:.95rem}
+.courses{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
+.courses li{display:grid;grid-template-columns:92px 1fr 190px;gap:6px 20px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.courses .code{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.courses .name{font-weight:600}
+.courses .topics{grid-column:2 / 3;color:var(--muted);font-size:.95rem;margin:2px 0 0;max-width:62ch}
+.courses .topics a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.courses .area{grid-column:3;grid-row:1;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px;justify-self:end}
+.area i{width:9px;height:9px;border-radius:2px;display:inline-block;background:var(--muted)}
+.area.fin i{background:var(--accent)} .area.data i{background:var(--amber)} .area.soft i{background:#3E63B5} .area.infra i{background:#7A4FB0}
+:root[data-theme="dark"] .area.soft i{background:#7C9BE6} :root[data-theme="dark"] .area.infra i{background:#B08BE0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .area.soft i{background:#7C9BE6} :root:not([data-theme="light"]) .area.infra i{background:#B08BE0}}
+.courses li.minor .name{font-weight:500}
+@media (max-width:700px){
+  .courses li{grid-template-columns:1fr;gap:2px}
+  .courses .topics,.courses .area{grid-column:1;grid-row:auto;justify-self:start}
+}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:20px}
+.legend .area{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted)}
+
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
 .skills h3{font-size:1rem;margin:0 0 10px}
@@ -154,6 +189,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.88rem;display:flex;just
     <a class="me" href="#">Ali Khairy</a>
     <nav>
       <a href="#work">Work</a>
+      <a class="opt" href="#studies">Studies</a>
       <a class="opt" href="#skills">Skills</a>
       <a class="opt" href="#about">About</a>
       <a href="#contact">Contact</a>
@@ -188,6 +224,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.88rem;display:flex;just
       <div>
         <h2>The chain so far</h2>
         <p>My projects and experience in the order I built them. Each block holds the SHA-256 hash of the one before it, computed in your browser.</p>
+        <p class="hint">Hover over a block to see its hash, or verify the whole chain.</p>
       </div>
       <div><button class="verify" id="verify" type="button">Verify chain</button><span class="status" id="status" aria-live="polite"></span></div>
     </div>
@@ -197,6 +234,26 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.88rem;display:flex;just
   <section id="more">
     <div class="sh"><div><h2>More repositories</h2><p>Coursework in programming, databases and networking.</p></div></div>
     <div class="more" id="moreList"></div>
+  </section>
+
+
+  <section id="studies">
+    <div class="sh">
+      <div>
+        <h2>What I've studied</h2>
+        <p>B.Sc. in FinTech &amp; Blockchain at ESLSCA University, Cairo. Every course I've taken, semester by semester, with what each technical one covered.</p>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="tabs" role="tablist" aria-label="Semesters" id="tabs"></div>
+    <div id="termPanel" role="tabpanel" tabindex="0"></div>
+    <div class="legend" aria-hidden="true">
+      <span class="area fin"><i></i>FinTech &amp; Blockchain</span>
+      <span class="area data"><i></i>Data &amp; AI</span>
+      <span class="area soft"><i></i>Software</span>
+      <span class="area infra"><i></i>Infrastructure &amp; Security</span>
+      <span class="area"><i></i>Math, Business &amp; Languages</span>
+    </div>
   </section>
 
   <section id="skills">
@@ -217,7 +274,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.88rem;display:flex;just
         <p>I'm most interested in where money meets code: how smart contracts can take middlemen out of transactions, how payment platforms stay secure, and how data can show risk before it becomes a loss.</p>
       </div>
       <dl class="facts">
-        <div><dt>Studying</dt><dd>B.Sc. FinTech &amp; Blockchain, ESLSCA University (2024 – present)</dd></div>
+        <div><dt>Studying</dt><dd>B.Sc. FinTech &amp; Blockchain, ESLSCA University (Fall 2024 – present, now in year 3)</dd></div>
         <div><dt>Experience</dt><dd>Intern at Kashier, Summer 2026</dd></div>
         <div><dt>Based in</dt><dd>Cairo, Egypt</dd></div>
         <div><dt>Languages</dt><dd>Arabic, English, French</dd></div>
@@ -310,7 +367,7 @@ async function build(){
   const g = await sha256("0|Fall 2024|Ali Khairy joins FinTech & Blockchain, ESLSCA University|0");
   const gEl = document.getElementById("genesisHash");
   if (!g){ gEl.textContent = "Hashing needs a secure (https) page."; document.getElementById("verify").hidden = true; return; }
-  gEl.textContent = g;
+  gEl.textContent = "hash " + short(g); gEl.title = g;
   hashes = [g];
   for (let i=0;i<blocks.length;i++){
     const prev = hashes[i];
@@ -325,6 +382,7 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.getElementById("verify").addEventListener("click", async (e) => {
   const btn = e.currentTarget, status = document.getElementById("status");
   btn.disabled = true;
+  chainEl.classList.add("show-hashes");
   document.querySelectorAll(".chain li").forEach(li => li.classList.remove("verified"));
   for (let i=0;i<blocks.length;i++){
     status.textContent = `checking block #${i+1}…`;
@@ -340,6 +398,92 @@ document.getElementById("verify").addEventListener("click", async (e) => {
   btn.textContent = "Chain verified";
 });
 build();
+
+const R = r => `<a href="${GH+r}" target="_blank" rel="noopener">${r}</a>`;
+const terms = [
+ { id:"f24", name:"Fall 2024", note:"Year 1, foundations", courses:[
+  ["DPRG101","Introduction to Computing","soft","Digital systems and IoT, telecom networks, hardware and software, data, algorithms and flowcharts, advanced Excel formulas"],
+  ["DPRG102","Python Fundamentals","soft","Numbers, strings, conditionals, loops and functions, with a team final project"],
+  ["DPRG103","Fundamentals of Web Development","soft","HTML, CSS and Bootstrap. Built and hosted a multi-page website"],
+  ["DNSC101","Computer Networks","infra",`Network concepts, topologies and the layered model. Designed a full network in Cisco Packet Tracer (${R("cisco-network-design")})`],
+  ["DIST101","Information Systems","soft","How organizations use information systems. Wrote a software requirements specification (SRS) as a team"],
+  ["DIST102","Operating Systems","infra","Processes, memory and file systems, plus automation with PowerShell scripting"],
+  ["DIST103","Database Management Systems","soft","Relational model, entity-relationship (ER) and enhanced ER modeling"],
+  ["DMTH101","Calculus","math","Limits, derivatives and integrals, with two applied mini projects"],
+  ["DMGT101","Principles of Management","biz",""],
+  ["DLAN101","Business English 1","lang",""],
+  ["DLAN102","French 1","lang",""]]},
+ { id:"s25", name:"Spring 2025", note:"Year 1, first applied projects", courses:[
+  ["DDSC201","Introduction to Artificial Intelligence","data",`Linear and logistic regression with scikit-learn. Final project analyzing 400K cloud deployments (${R("multicloud-microservices-analysis")})`],
+  ["DIST203","Database Systems & SQL","soft",`Joins, aggregation, stored procedures and a 4-person database project (${R("sql-database-assignments")})`],
+  ["DPRG202","Python Programming, Intermediate","soft","Data structures (lists, tuples, dictionaries), file handling and a team final project"],
+  ["DPRG203","Web Development, Intermediate","soft",`Server-side PHP, sessions and forms. Built a shopping cart and checkout (${R("php-shopping-cart")})`],
+  ["DMTH203","Probability & Statistics","math","Probability rules, Bayes' theorem, distributions and the normal curve, with Python exercises"],
+  ["DMTH204","Linear Algebra","math","Matrices, systems of equations and vector spaces, with NumPy and a mini project"],
+  ["DMGT202","Disruptive Technologies","biz","Case studies of tech that reshaped industries, such as Amazon"],
+  ["DMGT203","Entrepreneurship","biz","Feasibility study, business model canvas and a full business plan"],
+  ["DMVR201","Social Networks & Digital Marketing","biz",""],
+  ["DLAN201","Oral & Written English","lang",""],
+  ["DLAN202","French 2","lang",""]]},
+ { id:"f25", name:"Fall 2025", note:"Year 2, core CS and finance", courses:[
+  ["DDSC302","Mathematics for Machine Learning","data",`Logistic regression from scratch, PCA and Gaussian Naïve Bayes (${R("ml-math-from-scratch")})`],
+  ["DFIN301","Fundamentals of Accounting & Finance","fin","Financial statements, ratio analysis, time value of money, loan amortization, capital budgeting and free cash flows in Excel"],
+  ["DNSC302","Cloud Computing","infra","Virtualization, cloud storage, SaaS/PaaS/IaaS, SOA, VMs on VMware, AWS and GCP, cloud security and disaster recovery. Wrote a research paper on cloud security"],
+  ["DPRG303","Dynamic Web Applications","soft","Full-stack CRUD apps with React, Node.js, Express and MongoDB, including routing and protected pages"],
+  ["DPRG304","Data Structures & Algorithms","soft",`Linked lists, stacks, queues and search algorithms in Python (${R("python-data-structures")})`],
+  ["DPRG305","Object-Oriented Programming","soft",`Java classes, encapsulation, inheritance and a Swing GUI smart-parking system (${R("java-oop-labs")})`],
+  ["DMGT304","Management of Technology","biz","Strategic analysis of Apple: Porter's five forces, value chain and SWOT"],
+  ["DMGT305","Supply Chain Management","biz",""],
+  ["BEXP101","French Heritage","lang",""],
+  ["BEXP202","French Civilisation","lang",""],
+  ["DLAN301","Business English 2","lang",""],
+  ["DLAN302","French 3","lang",""]]},
+ { id:"s26", name:"Spring 2026", note:"Year 2, blockchain and applied AI", courses:[
+  ["DFIN402","Introduction to Blockchain & Cryptocurrencies","fin",`Solidity smart contracts, access control and Ether transfers in Remix (${R("solidity-smart-contracts")}), plus a research paper on real-estate tokenization`],
+  ["DDSC404","Big Data Analysis","data",`Hadoop, HDFS, HBase, the data analytics lifecycle and Power BI (${R("student-performance-prediction")})`],
+  ["DDSC405","Applied Machine Learning","data",`Neural networks, CNNs, regularization and transfer learning with TensorFlow/Keras (${R("machine-learning-labs")})`],
+  ["DDSC403","Introduction to IoT","data","Sensors and microcontrollers, with Arduino circuits simulated in Tinkercad"],
+  ["DNSC403","Principles of Cybersecurity","infra","Authentication and access control, threats, attack types, social engineering, IoT attacks, ethical hacking and cryptography"],
+  ["DPRG406","Fundamentals of Software Engineering","soft",`Requirements (SRS), UML use-case, activity and sequence diagrams, and design patterns in a PHP MVC app (${R("food-ordering-system-php")})`],
+  ["DMGT406","Agile, Scrum & DevOps","soft","Product vision, backlogs and sprint planning for a hospital appointment system"],
+  ["DMVR402","Augmented, Virtual & Mixed Reality","soft","Unity and the XR Interaction Toolkit, with a VR museum as the final project"],
+  ["DLAN401","Advanced Business English","lang",""],
+  ["DLAN402","French 4","lang",""]]},
+ { id:"f26", name:"Fall 2026", note:"Year 3, in progress", courses:[
+  ["DFIN501","Blockchain Technology: Emerging Trends","fin",""],
+  ["DFIN504","FinTech Trends & Financial World Disruption","fin",""],
+  ["DFIN505","E-Business & Payment Systems","fin",""],
+  ["DFIN506","Artificial Intelligence Applications","fin",""],
+  ["DFIN507","Cloud Computing Strategies in FinTech","fin",""],
+  ["DDSC507","Data Wrangling & Visualization","data",""],
+  ["DPRG507","Advanced Full-Stack Web Development","soft",`REST APIs and React, including an app that consumes a REST API (${R("react-posts-api")})`],
+  ["DGPT501","Graduation Project (1)","fin","A FinTech and blockchain platform, in progress"],
+  ["DEXP503","English International Career Preparation","lang",""],
+  ["DLAN502","French 5","lang",""]]},
+];
+const AREA = {fin:"FinTech & Blockchain", data:"Data & AI", soft:"Software", infra:"Infrastructure & Security", math:"Mathematics", biz:"Business", lang:"Languages"};
+const total = terms.reduce((n,t)=>n+t.courses.length,0);
+const tech = terms.reduce((n,t)=>n+t.courses.filter(c=>["fin","data","soft","infra"].includes(c[2])).length,0);
+const finN = terms.reduce((n,t)=>n+t.courses.filter(c=>c[2]==="fin").length,0);
+document.getElementById("stats").innerHTML =
+  `<span><b>${total}</b> courses</span><span><b>${terms.length}</b> semesters</span><span><b>${tech}</b> technical courses</span><span><b>${finN}</b> in FinTech &amp; Blockchain</span>`;
+const tabsEl = document.getElementById("tabs"), panel = document.getElementById("termPanel");
+tabsEl.innerHTML = terms.map(t=>`<button role="tab" id="tab-${t.id}" aria-controls="termPanel" aria-selected="false" tabindex="-1">${t.name}<small>${t.courses.length}</small></button>`).join("");
+function showTerm(id, focus){
+  const t = terms.find(x=>x.id===id);
+  tabsEl.querySelectorAll("button").forEach(b=>{const on=b.id==="tab-"+id; b.setAttribute("aria-selected",on); b.tabIndex=on?0:-1; if(on&&focus) b.focus();});
+  panel.setAttribute("aria-labelledby","tab-"+id);
+  panel.innerHTML = `<div class="term-intro"><h3>${t.name}</h3><p>${t.note}</p></div><ul class="courses">` +
+    t.courses.map(([code,name,area,topics])=>`<li class="${["lang","biz","math"].includes(area)&&!topics?"minor":""}"><span class="code">${code}</span><span class="name">${esc(name)}</span><span class="area ${["fin","data","soft","infra"].includes(area)?area:""}"><i></i>${AREA[area]}</span>${topics?`<p class="topics">${topics}</p>`:""}</li>`).join("") + `</ul>`;
+}
+tabsEl.addEventListener("click", e=>{const b=e.target.closest("button"); if(b) showTerm(b.id.slice(4));});
+tabsEl.addEventListener("keydown", e=>{
+  if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+  const ids=terms.map(t=>t.id), cur=ids.indexOf(tabsEl.querySelector('[aria-selected="true"]').id.slice(4));
+  const nx = e.key==="Home"?0:e.key==="End"?ids.length-1:(cur+(e.key==="ArrowRight"?1:-1)+ids.length)%ids.length;
+  e.preventDefault(); showTerm(ids[nx], true);
+});
+showTerm("f26");
 
 document.getElementById("yr").textContent = new Date().getFullYear();
 const tBtn = document.getElementById("theme");
